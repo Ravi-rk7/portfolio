@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { MotionProvider } from '@/components/motion-system';
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -10,13 +11,13 @@ export const metadata: Metadata = {
     template: '%s — Ravi Kiran',
   },
   description:
-    'Full-stack developer with an eye for the details. Explore Intervia, TejAi, and Yappy — thoughtful interfaces backed by real engineering.',
+    'Ravikiran Tandale — software developer building full-stack applications, AI workflows, and real-time experiences. Explore the work behind the code.',
   icons: { icon: '/favicon.svg' },
   openGraph: {
     type: 'website',
     title: 'Ravi Kiran — Full-stack Developer',
     description:
-      'Built with logic. Made to feel. Selected projects in AI, real-time communication, and everyday digital routines.',
+      'Less talk. More shipped. Explore full-stack applications, AI-powered workflows, and real-time software by Ravi Kiran.',
   },
 };
 
@@ -27,7 +28,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <MotionProvider>{children}</MotionProvider>
+      </body>
     </html>
   );
 }

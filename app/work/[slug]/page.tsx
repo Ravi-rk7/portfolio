@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowUpRight, ArrowDown, Play } from 'lucide-react';
 import { projects } from '@/lib/projects';
 import { SiteHeader, SiteFooter } from '@/components/site-header';
 import { ProjectGallery } from '@/components/project-gallery';
+import { Reveal, ScrambleText } from '@/components/motion-system';
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.id }));
@@ -56,7 +57,7 @@ export default async function ProjectPage({
             {project.number} / {project.category}
           </p>
           <h1>
-            {project.name}
+            <ScrambleText text={project.name.toUpperCase()} onMount />
             <span className="brand-dot">.</span>
           </h1>
           <div className="case-intro">
@@ -96,14 +97,16 @@ export default async function ProjectPage({
               )}
             </div>
           </div>
-          <img
-            className="case-cover"
-            src={project.image}
-            alt={project.alt}
-            width={1920}
-            height={1080}
-            fetchPriority="high"
-          />
+          <Reveal>
+            <img
+              className="case-cover"
+              src={project.image}
+              alt={project.alt}
+              width={1920}
+              height={1080}
+              fetchPriority="high"
+            />
+          </Reveal>
         </section>
         <section className="case-story wrap" aria-labelledby="challenge-title">
           <p className="eyebrow">THE THINKING</p>
@@ -120,7 +123,7 @@ export default async function ProjectPage({
           aria-labelledby="interface-title"
         >
           <div className="wrap">
-            <div className="section-heading">
+            <Reveal className="section-heading">
               <div>
                 <p className="eyebrow section-kicker">UP CLOSE</p>
                 <h2 id="interface-title">Inside the experience.</h2>
@@ -128,7 +131,7 @@ export default async function ProjectPage({
               <p className="section-aside">
                 A closer look at the actual interface.
               </p>
-            </div>
+            </Reveal>
             <ProjectGallery
               images={project.gallery}
               name={project.name}
