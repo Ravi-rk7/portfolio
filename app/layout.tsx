@@ -3,9 +3,6 @@ import './globals.css';
 import { MotionProvider } from '@/components/motion-system';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    'https://ravi-kiran-portfolio.coding-ravikirantan7.chatgpt.site',
-  ),
   title: {
     default: 'Ravi Kiran — Full-stack Developer',
     template: '%s — Ravi Kiran',

@@ -1,34 +1,55 @@
-# Ravi Kiran — Portfolio
+# Ravikiran — Portfolio
 
-A developer portfolio with a red-lit dark theme, locally hosted Geist Pixel typography, and Motion for React. Inspired by the pixel typography and floating glass navigation of the supplied ohsh.in/work reference, with original layouts and the supplied Intervia, TejAi, and Yappy projects.
+A developer portfolio that brings selected projects, interface walkthroughs, and engineering decisions into one place for reviewers. It presents Intervia, TejAi, and Yappy through a homepage and individual case studies.
 
-Motion includes a pointer-reactive canvas pixel field, text decoding, spring-based magnetic links and project tilt, scroll-linked hero movement, sticky project cards, section reveals, and a continuous tech marquee. The dock includes an animation pause control; the site also respects the system reduced-motion preference. Continuous effects pause when disabled, and the canvas limits drawing to 25 frames per second.
+Implemented features include screenshot galleries with keyboard and swipe navigation, local walkthrough videos for Intervia and Yappy, GitHub links, responsive layouts, and interactive motion. An animation pause control and the system reduced-motion preference control continuous effects. Fonts and project media are self-hosted.
 
-The three case studies retain screenshot galleries, keyboard and swipe navigation, and self-hosted walkthrough videos. Fonts and project media are local.
+## Stack
 
-## Run locally
+Next.js 16 App Router, React 19, and TypeScript. Styling uses Tailwind CSS 4 and custom CSS; interactions use Motion, Base UI buttons, Embla Carousel, and Lucide icons. The project uses the standard Next.js build for Vercel.
+
+The technologies described inside the case studies belong to the showcased applications, not to this portfolio's backend.
+
+## Local setup
+
+Requires Node.js **22.13.0 or newer** and npm. Run these commands from the directory containing `package.json`:
 
 ```sh
-npm install
-npm run dev -- --host 127.0.0.1 --port 3000
+npm ci
+npm run dev -- --hostname 127.0.0.1 --port 3000
 ```
 
-Open http://localhost:3000. Build with `npm run build`; type-check with `npx tsc --noEmit`.
+Open http://localhost:3000. No application environment variables or credentials are required for the current portfolio. Keep any future local secrets in ignored `.env*` files; commit only placeholder examples.
 
-## Content and design
+## Build and checks
 
-- `components/portfolio-home.tsx`: home page, project presentation, biography, and GitHub contact links.
-- `components/motion-system.tsx`: motion preferences, canvas, text decoding, and magnetic links.
-- `components/site-header.tsx`: active navigation dock, progress, clock, and motion toggle.
-- `lib/projects.ts`: all project copy, media paths, disclosures, and verified source links.
-- `app/work/[slug]/page.tsx`: shared case-study page.
-- `app/globals.css`: typography, palette, spacing, responsiveness, and motion.
-- `public/projects/`: selected supplied images and videos. No remote asset service is needed.
-- `public/fonts/`: local fonts and licenses, including Geist Sans, Mono, and Pixel Square from Vercel.
-- `public/github.svg`: GitHub mark from Simple Icons (CC0).
+```sh
+npm run build
+npm start -- --hostname 127.0.0.1 --port 3000
+npm run lint
+npm run typecheck
+```
 
-The supplied `../prompt.md` and `../Resources/Resources.txt` were empty when this version was built. Project information comes from the three supplied demo kits. The full name appears in the Yappy cover; the GitHub link comes from the Intervia case study. No email address, résumé, employment history, live app URL, or unverified performance metric has been invented. Replace the GitHub contact links with your preferred contact method when available.
+`npm start` serves the production Next.js build locally and requires a successful build. `npm run typecheck` generates route types and checks TypeScript. `npm run format` formats files in place. No automated test suite or test script is configured.
 
-All showcased application media uses illustrative data. Keep the demo disclosures with the media when editing or republishing.
+## Deploy to Vercel
 
-`.openai/hosting.json` identifies this Sites project. Preserve it when redeploying.
+Import the repository into Vercel and select the **Next.js** framework preset. Set the root directory to the folder containing `package.json` (`./` if this repository is imported directly, or `portfolio` if its parent directory is the repository root). Use `npm ci` for installation, `npm run build` for the build command, and the default output directory. No custom `vercel.json` or application environment variables are required. See [Next.js on Vercel](https://vercel.com/docs/frameworks/full-stack/nextjs).
+
+## Structure
+
+- `app/`: root layout, homepage, shared `/work/[slug]` case-study route, 404 page, and global styles.
+- `components/`: homepage, navigation, motion system, gallery, GitHub icon, and the button/carousel UI primitives.
+- `lib/projects.ts`: project descriptions, gallery paths, source links, and demo disclosures; `lib/utils.ts` provides class-name helpers.
+- `public/`: project images, videos, captions, fonts, and licenses.
+- `postcss.config.mjs`, `tsconfig.json`: CSS and TypeScript configuration. Next.js uses its defaults.
+
+## Limitations and attribution
+
+Existing lint diagnostics remain in active components, including image-element rules, React effect rules, accessibility rules, and unescaped quotation marks. Type-checking and building are separate from linting.
+
+Production-preview browser checks still report pre-existing React hydration errors (#418). Internal navigation, gallery controls, and the motion toggle work in the tested flows.
+
+This repository presents projects; it does not run their authentication, AI, payments, or messaging backends. Showcased media uses illustrative data, and some walkthrough events are simulated. Preserve each case study's demo disclosures when editing or republishing. The contact links currently point to GitHub; no contact form or résumé download is implemented.
+
+The design takes inspiration from the pixel typography and floating glass navigation of `ohsh.in/work`, with original layouts and supplied project media. Project information comes from the Intervia, TejAi, and Yappy demo kits. Geist Sans, Mono, and Pixel Square are from Vercel; font licenses are retained in `public/fonts/licenses/`. The GitHub mark in `public/github.svg` is from Simple Icons (CC0).
